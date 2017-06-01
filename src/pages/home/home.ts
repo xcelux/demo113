@@ -9,6 +9,9 @@ import { Facebook } from '@ionic-native/facebook';
 })
 export class HomePage {
 
+  user: any = {};
+  showUser: boolean = false;
+
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -33,9 +36,11 @@ export class HomePage {
   }
 
   getInfo(){
-    this.facebook.api('/me?fields=id,name,email,first_name,last_name,gender',['public_profile','email'])
-    .then(rta=>{
-      console.log(rta);
+    this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
+    .then(data=>{
+      console.log(data);
+      this.showUser = true; 
+      this.user = data;
     })
     .catch(error =>{
       console.error( error );
